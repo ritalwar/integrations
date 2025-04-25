@@ -792,6 +792,9 @@ rules:
                   },
                   {
                       "serviceName": "MicrosoftDefenderforOffice365"
+                  },
+                  {
+                      "serviceName": "MicrosoftSentinel"
                   }
               ]
           }
@@ -829,6 +832,17 @@ rules:
                     }
               ]
           }
+      - status_code: 200
+        headers:
+          Content-Type:
+            - 'application/json'
+        body: |-
+          {
+              "value": [],
+              "nextLink": null,
+              "totalCount": 0,
+              "continuationToken": null
+          }         
   - path: /providers/Microsoft.ADHybridHealthService/services/MicrosoftDefenderforOffice365/alerts
     methods: ['GET']
     request_headers:
@@ -862,4 +876,23 @@ rules:
                     "serviceMemberId": "office365-defender-email-0753"
                     }
               ]
+          }
+  - path: /providers/Microsoft.ADHybridHealthService/services/MicrosoftSentinel/alerts
+    methods: ['GET']
+    request_headers:
+      Authorization:
+        - "Bearer xxxx"
+    query_params:
+      'api-version': '2014-01-01'
+    responses:
+      - status_code: 401
+        headers:
+          Content-Type:
+            - 'application/json'
+        body: |-
+          {
+            "error": {
+            "code": "AuthenticationFailed",
+            "message": "Authentication failed."
+            }
           }
